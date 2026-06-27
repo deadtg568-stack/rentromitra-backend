@@ -46,5 +46,20 @@ export const bhopalAreas = [
   { areaName: "Saket Nagar", category: "Near AIIMS", city: "Bhopal" },
   { areaName: "Habibganj", category: "Near AIIMS", city: "Bhopal" },
   { areaName: "Hoshangabad Road", category: "Near AIIMS", city: "Bhopal" },
-  { areaName: "Danish Nagar", category: "Near AIIMS", city: "Bhopal" }
+  { areaName: "Danish Nagar", category: "Near AIIMS", city: "Bhopal" },
+  // Missing locations requested
+  { areaName: "New Market", category: "Premium Residential", city: "Bhopal" },
+  { areaName: "TT Nagar", category: "Premium Residential", city: "Bhopal" },
+  { areaName: "Jawahar Chowk", category: "Premium Residential", city: "Bhopal" },
+  { areaName: "Batailyan 23, 24, 25", category: "Residential", city: "Bhopal" },
+  { areaName: "Katara", category: "Residential", city: "Bhopal" },
+  { areaName: "Prabhat Petrol Pump", category: "Residential", city: "Bhopal" },
+  { areaName: "Panchsheel", category: "Residential", city: "Bhopal" },
+  { areaName: "Lalghati", category: "Residential", city: "Bhopal" },
+  { areaName: "Bairagarh", category: "Residential", city: "Bhopal" },
+  { areaName: "Neelbad", category: "Residential", city: "Bhopal" },
+  { areaName: "Barkheda", category: "Residential", city: "Bhopal" },
+  { areaName: "Ratibad", category: "Residential", city: "Bhopal" },
+  { areaName: "Polytechnic Chauraha", category: "Residential", city: "Bhopal" },
+  { areaName: "Korond", category: "Residential", city: "Bhopal" }
 ];
