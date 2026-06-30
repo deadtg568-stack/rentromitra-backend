@@ -79,6 +79,7 @@ const propertySchema = new mongoose.Schema(
     wifiAvailable: { type: Boolean, default: false },
     status: { type: String, enum: APPROVAL_STATUSES, default: "pending", index: true },
     availability: { type: String, enum: AVAILABILITY_STATUSES, default: "available", index: true },
+    manualAvailabilityOverride: { type: Boolean, default: false },
     availableRooms: { type: Number, default: 0, min: 0 },
     ratings: { type: ratingsSchema, default: () => ({ average: 0, count: 0 }) },
     rooms: [roomSchema],
@@ -171,7 +172,9 @@ propertySchema.pre("validate", function syncPropertyAliases(next) {
     };
   }
 
-  this.availability = Number(this.availableRooms || 0) > 0 ? "available" : "booked";
+  if (!this.manualAvailabilityOverride) {
+    this.availability = Number(this.availableRooms || 0) > 0 ? "available" : "booked";
+  }
 
   next();
 });
