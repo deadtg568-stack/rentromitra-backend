@@ -285,39 +285,3 @@ export async function approveProperty(req, res, next) {
 export async function rejectProperty(req, res, next) {
   return updateApprovalStatus(req, res, next, "rejected");
 }
-
-export async function setPropertyAvailability(req, res, next) {
-  try {
-    const { availability } = req.body;
-    if (!["available", "booked"].includes(availability)) {
-      throw new ApiError(400, "availability must be 'available' or 'booked'");
-    }
-
-    const property = await Property.findById(req.params.id);
-    if (!property) throw new ApiError(404, "Property not found");
-
-    property.availability = availability;
-    property.manualAvailabilityOverride = true;
-    await property.save();
-    await property.populate("owner", "name email");
-
-    res.json({ success: true, property });
-  } catch (error) {
-    next(error);
-  }
-}
-
-export async function clearPropertyAvailabilityOverride(req, res, next) {
-  try {
-    const property = await Property.findById(req.params.id);
-    if (!property) throw new ApiError(404, "Property not found");
-
-    property.manualAvailabilityOverride = false;
-    await property.save();
-    await property.populate("owner", "name email");
-
-    res.json({ success: true, property });
-  } catch (error) {
-    next(error);
-  }
-}

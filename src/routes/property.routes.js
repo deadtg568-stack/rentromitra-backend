@@ -6,7 +6,6 @@ import {
   listManagedProperties,
   listProperties,
   searchProperties,
-  setPropertyAvailability,
   updateProperty
 } from "../controllers/property.controller.js";
 import { protect } from "../middleware/auth.middleware.js";
@@ -22,7 +21,6 @@ router.get("/manage", protect, authorizeRoles("admin", "superadmin"), listManage
 router.get("/:id", validatePropertyId, getProperty);
 router.post("/", protect, authorizeRoles("admin"), upload.array("images", 10), handleMulterError, validatePropertyPayload, createProperty);
 router.patch("/:id", protect, authorizeRoles("admin", "superadmin"), validatePropertyId, upload.array("images", 10), handleMulterError, validatePropertyPayload, updateProperty);
-router.patch("/:id/availability", protect, authorizeRoles("admin", "superadmin"), validatePropertyId, setPropertyAvailability);
 router.delete("/:id", protect, authorizeRoles("admin", "superadmin"), validatePropertyId, deleteProperty);
 
 export default router;
