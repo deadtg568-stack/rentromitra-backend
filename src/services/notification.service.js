@@ -6,7 +6,7 @@ import { getIO, roomForUser } from "../socket.js";
 
 const vapidPublicKey = process.env.VAPID_PUBLIC_KEY;
 const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY;
-const vapidSubject = process.env.VAPID_SUBJECT || `mailto:${process.env.SUPER_ADMIN_EMAIL || "admin@rentomitra.local"}`;
+const vapidSubject = process.env.VAPID_SUBJECT || `mailto:${process.env.SUPER_ADMIN_EMAIL || "superadmin@rentromitra.com"}`;
 const pushEnabled = Boolean(
   vapidPublicKey &&
     vapidPrivateKey &&

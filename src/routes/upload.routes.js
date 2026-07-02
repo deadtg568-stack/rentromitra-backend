@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { uploadMultipleImages, uploadPropertyImages, uploadSingleImage } from "../controllers/upload.controller.js";
+import { deletePropertyImage, uploadMultipleImages, uploadPropertyImages, uploadSingleImage } from "../controllers/upload.controller.js";
 import { protect } from "../middleware/auth.middleware.js";
 import { authorizeRoles } from "../middleware/role.middleware.js";
 import { validatePropertyId } from "../middleware/property.validation.js";
@@ -20,5 +20,7 @@ router.post(
   handleMulterError,
   uploadPropertyImages
 );
+
+router.delete("/properties/:propertyId/images", validatePropertyId, deletePropertyImage);
 
 export default router;

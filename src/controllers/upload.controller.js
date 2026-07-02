@@ -59,6 +59,37 @@ export async function uploadMultipleImages(req, res, next) {
   }
 }
 
+export async function deletePropertyImage(req, res, next) {
+  try {
+    const { publicId } = req.body;
+    if (!publicId) throw new ApiError(400, "Image publicId is required");
+
+    const property = await Property.findById(req.params.propertyId);
+    if (!property) throw new ApiError(404, "Property not found");
+
+    ensurePropertyUploadAllowed(property, req.user);
+
+    const imageIndex = property.images.findIndex((img) => img.publicId === publicId);
+    if (imageIndex === -1) throw new ApiError(404, "Image not found on this property");
+
+    const [removedImage] = property.images.splice(imageIndex, 1);
+
+    // Delete from Cloudinary (non-blocking — don't fail if Cloudinary is unreachable)
+    try {
+      assertCloudinaryConfig();
+      await cloudinary.uploader.destroy(publicId);
+    } catch (cloudinaryError) {
+      console.error("Cloudinary deletion failed (image removed from property anyway):", cloudinaryError.message);
+    }
+
+    await property.save();
+
+    res.json({ success: true, image: removedImage });
+  } catch (error) {
+    next(error);
+  }
+}
+
 export async function uploadPropertyImages(req, res, next) {
   try {
     const files = req.files || (req.file ? [req.file] : []);
